@@ -1,0 +1,53 @@
+#include<iostream>
+#include<cmath>
+#include<cstring>
+using namespace std;
+
+int main() {
+
+	int n, m, ten = 0;
+	char num[50] = { 0 }, ans[50] = { 0 };
+	cin >> n >> num >> m;
+	int len1 = strlen(num);
+
+	//1、将n进制转换为10进制
+
+	for (int i = len1 - 1,k=0; i >= 0; i--,k++) {
+		int temp = 0;
+		if (num[i] >= 'A' && num[i] <= 'Z') {
+			temp = num[i] - 'A' + 10;
+		}
+		else {
+			temp = num[i] - '0';
+		}
+		ten = ten + temp * pow(n,k);
+	}
+
+	//2、将十进制转换为m进制
+
+	int k = 0;
+	while (ten != 0) {
+		int yu;
+		char temp = 0;
+		yu = ten % m;
+		ten /= m;
+
+		if (yu < 10) {
+			temp = yu + '0';
+		}
+		else {
+			temp = yu - 10 + 'A';
+		}
+		ans[k++] = temp;
+
+	}
+
+	//3、打印结结果
+	for (int i = k - 1; i >= 0; i--) {
+		cout << ans[i];
+	}
+
+
+	return 0;
+}
+
