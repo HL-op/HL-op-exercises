@@ -1,0 +1,58 @@
+//顺序表的模拟实现（仅仅是增加操作）
+#include<iostream>
+using namespace std;
+const int N = 1e6 + 10; // 容量上限
+int a[N];
+int n; // 当前元素数量，初始化为0，避免未定义行为
+
+//1、尾插法（push_back）
+void push_back(int x) {
+	//一般这里是要加一个判断语句的，去检查是否超过容量上限的，但这里我们假设输入合法
+	a[++n] = x; // 在索引n处插入元素x
+}
+//2、头插法
+void push_front(int x) {
+	for (int i = n; i >= 1; i--) {
+		a[i + 1] = a[i];
+	}
+	a[1] = x;
+	n++;
+}
+//3、在任意的位置插入
+void insert_anywhere(int p, int x) {
+	//在[p,n]中，在p索引处插入
+	for (int i = n; i >= p; i--) {
+		a[i + 1] = a[i];
+	}
+	a[p] = x;
+	n++;
+}
+//4、打印函数
+void print() {
+	for (int i = 1; i <= n; i++) {
+		cout << a[i] << " ";
+	}
+	cout << endl;
+}
+
+
+int main() {
+	cout << "下面是尾插法的演示:" << endl;
+	push_back(2);
+	print();
+	push_back(3);
+	print();
+	push_back(6);
+	print();
+	push_back(5);
+	print();
+	cout << "下面是头插法的演示:" << endl;
+	push_front(1000);
+	print();
+	cout << "下面是任意位置插入的演示:" << endl;
+	insert_anywhere(2, 777);
+	print();
+
+	return 0;
+}
+
