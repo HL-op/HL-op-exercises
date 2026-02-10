@@ -1,0 +1,97 @@
+//顺序表的模拟实现
+#include<iostream>
+using namespace std;
+const int N = 1e6 + 10; // 容量上限
+int a[N];// 存储元素的数组，索引从1开始使用
+int n; // 当前元素数量，初始化为0，避免未定义行为
+
+//1、尾插法（push_back）
+void push_back(int x) {
+	//一般这里是要加一个判断语句的，去检查是否超过容量上限的，但这里我们假设输入合法
+	a[++n] = x; // 在索引n处插入元素x
+}
+//2、头插法
+void push_front(int x) {//在索引1处插入元素x，所以要把索引1及其之后的元素都往后移动一位
+	for (int i = n; i >= 1; i--) {//从索引n开始往前移动
+		a[i + 1] = a[i];//把索引1的元素移动到索引2，索引2的元素移动到索引3，以此类推
+	}
+	a[1] = x;	//在索引1处插入元素x
+	n++;	//元素数量增加1
+}
+//3、在任意的位置插入
+void insert_anywhere(int p, int x) {
+	
+	for (int i = n; i >= p; i--) {	//从索引n开始往前移动，在p索引处插入
+		a[i + 1] = a[i];			//把索引p及其之后的元素都往后移动一位
+	}
+	a[p] = x;//在索引p处插入元素x
+	n++;
+}
+//4、打印函数
+void print() {
+	for (int i = 1; i <= n; i++) {//从索引1开始打印，直到索引n
+		cout << a[i] << " ";
+	}
+	cout << endl;
+}
+//5、尾删除法
+void pop_back() {
+	n--;//直接把n减1就行了，之前的元素虽然还在数组里，但我们不再访问它了
+}
+//6、头删除法
+void pop_front() {
+									
+	for (int i = 1; i < n; i++) {
+		a[i] = a[i + 1]; //把索引2的元素移动到索引1，索引3的元素移动到索引2，以此类推
+	}
+	n--;//元素数量减少1
+}
+
+//7、任意位置删除
+void erase_anywhere(int p) {
+	for (int i = p; i <= n; i++) {
+		a[i] = a[i + 1];
+	}
+	n--;
+}
+
+
+
+int main() {
+	cout << "下面是尾插法的演示(依次插入1、2、3、6、5):" << endl;
+	push_back(2);
+	print();
+	push_back(3);
+	print();
+	push_back(6);
+	print();
+	push_back(5);
+	print();
+
+	cout << "下面是头插法的演示（插入1000）:" << endl;
+	push_front(1000);
+	print();
+
+	cout << "下面是任意位置插入的演示（插入777）:" << endl;
+	insert_anywhere(2, 777);
+	print();
+
+	cout << "下面是尾删除法的演示（删除5和6）:" << endl;
+	pop_back();
+	print();
+	pop_back();
+	print();
+
+	cout << "下面是头删法的演示（删除1000和777）:" << endl;
+	pop_front();
+	print();
+	pop_front();
+	print();
+	
+	cout << "下面是任意位置删除法的演示：" << endl;
+	erase_anywhere(1);
+	print();
+
+	return 0;
+}
+
