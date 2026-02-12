@@ -1,0 +1,73 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+const int N = 10;
+struct Node {
+	int a, b;
+	string s;
+};
+
+void print(vector<int>& a) {
+
+	for (int i = 0; i < a.size(); i++) {
+		cout << a[i] << " ";
+	}
+	cout << endl;
+}
+
+//用迭代器遍历
+void print1(vector<int>& a) {//a 是别名（引用变量名）&是类型的一部分，用来表示这是一个引用类型
+	//这里用auto代替vector<int>::iterator也是可以的
+	for (vector<int>::iterator it = a.begin(); it != a.end(); it++) {
+		cout << *it << " ";
+	}
+	cout << endl;
+
+	//也可以用范围for写
+	for (auto x : a) {
+		cout << x << " ";
+	}
+
+	cout << endl;
+
+}
+
+
+int main() {
+
+	vector<int> a1;		//定义一个可变长的整型数组
+	vector<int> a2(N);	//定义一个N=10的可变长数组，默认值的值都为0
+	vector<int> a3(N, 2);	//定义一个N=10的可变长数组，且初始化都为2
+	vector<int> a4 = { 1,2,3,4,5};	//定义一个可变长数组，初始值为： 1,2,3,4,5
+
+	vector<string> a5;	//创建一个可变长用于存放字符串的数组
+	vector<Node> a6;	//存放结构体的一个数组
+	vector<vector<int>> a7;	//a7是一个可变长的二维数组，a7里面的每个元素都是一个vector<int>类型的数组
+	vector<int> a8[N];	//创建一个大小为N的数组，里面的每个元素都是vector<int>类型的数组
+	
+	print(a2);
+	print(a3);
+	print(a4);
+
+	if (a2.empty())cout << "该顺序表为空表" << endl;
+	else cout << "该顺序表不是空表" << endl;
+
+	print1(a4);
+
+	cout << "下面是尾插和尾删的演示" << endl;
+	for (int i = 0; i < 5; i++) {	//尾插
+		a1.push_back(i);
+		print(a1);
+	}
+
+	while (!a1.empty()) {	//尾删
+		print(a1);
+		a1.pop_back();
+	}
+
+	cout << "a4的头元素为: " << a4.front() << " " << endl << "a4的尾元素为：" << a4.back() << endl;
+
+
+
+	return 0;
+}
