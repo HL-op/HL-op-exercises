@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+const int N = 1e6 + 10;
+int e[N], ne[N], id, h;//e[i]表示第i个节点的值，ne[i]表示第i个节点的next指针，id表示当前已经使用的节点数量，h表示头节点的位置
+int mp[N];	//mp[i]表示i这个数存储的位置 
+
+void print() {//打印链表
+	for (int i = ne[h]; i; i = ne[i]) {
+		cout << e[i] << " ";
+	}
+	cout << endl << endl;
+}
+//头插法
+void push_front(int x) {
+	id++;
+	e[id] = x;
+	mp[x] = id;//记录x这个数存储的位置
+
+	ne[id] = ne[h];//新节点的next指向原来h的next
+	ne[h] = id;//h的next指向新节点
+}
+//按值查找
+//int find(int x) {
+// 解法一:遍历链表
+//	for (int i = ne[h]; i; i = ne[i]) {
+//		if (e[i] == x) return i;
+//	}
+//	return 0;
+//}
+
+int find_1(int x) {
+	//解法二：用mp数组优化
+	return mp[x];
+
+}
+
+int main() {
+
+	for (int i = 1; i <= 5; i++) {
+		push_front(i);
+		print();
+	}
+	//cout << find(1) << endl;
+	cout << find_1(1) << endl;
+
+	return 0;
+}
