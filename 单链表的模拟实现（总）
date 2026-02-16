@@ -1,0 +1,73 @@
+#include<iostream>
+using namespace std;
+const int N = 1e6;
+int e[N], ne[N], id, h,mp[N];
+
+void print() {//打印函数
+	for (int i = ne[h]; i; i = ne[i]) {
+		if (i == 1)cout <<e[1] <<"->NULL";
+		else
+		cout << e[i] << " "<<"->";
+	}
+	cout << endl << endl;;
+}
+
+//链表的头插法
+void push_front(int x) {
+	id++;
+	e[id] = x;
+	mp[x] = id;
+
+	ne[id] = ne[h];
+	ne[h] = id;
+}
+//在链表的位置P后上插入操作
+void insert(int p, int x) {
+	id++;
+	e[id] = x;
+	mp[x] = id;
+
+	ne[id] = ne[p];
+	ne[p] = id;
+
+}
+//按值查找	
+int find_1(int x) {
+	for (int i=ne[h]; i; i=ne[i]) {
+		if (e[i] == x)return i;
+	}
+	return 0;
+}
+
+//通过mp数组值找位置
+int find_2(int x) {
+	return mp[x];
+}
+
+//删除p后面的一个元素
+void erase(int p) {
+	if (ne[p]) {
+		mp[e[ne[p]]] = 0;	//e[ne[p]]是位置p后面一个元素的数据域
+		ne[p] = ne[ne[p]];
+	}
+}
+
+
+int main() {
+
+	for (int i = 1; i <= 5; i++) {
+		push_front(i);
+		print();
+	}
+
+	insert(2, 1000);
+	print();
+	insert(4, 77);
+	print();
+	cout << find_1(2) << endl << endl;
+	cout << find_2(2) << endl<<endl;
+	erase(4);
+	print();
+
+	return 0;
+}
