@@ -1,0 +1,87 @@
+#include<iostream>
+using namespace std;
+const int N = 1e6 + 10;
+int e[N], ne[N], pre[N], id, h;
+int mp[N];
+
+int find(int x) {	//用数组优化查找位置
+	return mp[x];
+}
+
+void print() {	//打印函数
+	for (int i = ne[h]; i; i = ne[i]) {
+		cout << e[i] << " ";
+
+	}
+	cout << endl << endl;
+}
+
+void push_front(int x) {	//头插法
+
+	id++;
+	e[id] = x;
+	mp[x] = id;
+
+	pre[id] = h;
+	ne[id] = ne[h];
+	
+	pre[ne[h]] = id;
+	ne[h] = id;
+
+}
+
+void insert_back(int p, int x) {	//在p位置之后的位置插入
+
+	id++;
+	e[id] = x;
+	mp[x] = id;
+
+	pre[id] = p;
+	ne[id] = ne[p];
+
+	pre[ne[p]] = id;
+	ne[p] = id;
+
+}
+
+void insert_front(int p, int x) {//在任意P的前面插入
+
+	id++;
+	e[id] = x;
+	mp[x] = id;
+
+	pre[id] = pre[p];
+	ne[id] = p;
+	ne[pre[p]] = id;
+	pre[p] = id;
+	
+}
+
+void erase(int p) {//删除p结点的元素
+	mp[e[id]] = 0;
+	ne[pre[p]] = ne[p];
+	pre[ne[p]] = pre[p];
+
+}
+
+
+int main() {
+
+	for (int i = 1; i <= 5; i++) {
+		push_front(i);
+		print();
+	}
+
+	cout << find(1) << endl;
+	insert_front(2, 22);
+	print();
+	insert_back(3, 66);
+	print();
+	insert_back(4, 88);
+	print();
+
+	erase(2);
+	print();
+
+	return 0;
+}
