@@ -1,0 +1,17 @@
+#include<iostream>
+#include<stack>//引入stack头文件，stack是一个模板类，使用之前需要引入这个头文件
+using namespace std;
+
+int main() {
+	stack<int>st;//创建一个栈，栈里面存储int类型的数据
+	for (int i = 1; i <= 10; i++) {
+		st.push(i);//调用stack类里面的成员函数push，把数据压入栈中
+	}
+	while (st.size()) {//调用stack类里面的成员函数size，判断栈里面是否有元素
+
+		cout << st.top() << endl;//调用stack类里面的成员函数top，获取栈顶元素
+		st.pop();//调用stack类里面的成员函数pop，把栈顶元素弹出
+	}
+
+	return 0;
+}
