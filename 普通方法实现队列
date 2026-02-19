@@ -1,0 +1,49 @@
+#include<iostream>
+using namespace std;
+const int N = 1e6 + 10;
+int q[N], h, t;
+
+//入队
+void push(int x) {
+	q[++t] = x;
+}
+
+//出队
+void pop() {
+	h++;
+}
+//查询队头元素
+int front() {	
+	return q[h + 1];
+}
+//查询队尾元素
+int back() {
+	return q[t];
+}
+//判断是否为空
+bool empty() {
+	return t == h;
+}
+//查询元素个数
+int size() {
+	return t - h;
+}
+
+
+
+
+int main() {
+
+	for (int i = 1; i <= 10; i++) {
+		push(i);
+	}
+
+	while (size()) {
+
+		cout << front() << " " << back() << endl;
+		pop();
+	}
+
+
+	return 0;
+}
