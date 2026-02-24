@@ -1,0 +1,33 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+const int N = 1e5 + 10;
+int n, a, b;
+vector<int>edges[N];//有关u的一个链表，存储了u的所有邻居，但不包含u
+bool st[N];	//st[i] = true 代表i已经被访问过了
+
+void dfs(int u) {
+
+	cout << u << " ";	//访问u这个节点
+	st[u] = true;//标记u为已访问
+
+	for (auto v : edges[u]) {	//遍历u的所有邻居v
+		if (!st[v]) {	//如果v没有被访问过
+			dfs(v);	//继续访问v
+		}
+	}
+}
+
+int main() {
+
+	cin >> n;
+	for (int i = 1; i < n; i++) {	//输入n-1条边
+		cin >> a >> b;	//输入一条边，连接了a和b
+		edges[a].push_back(b);	//将b加入a的邻居列表
+		edges[b].push_back(a); // 将a加入b的邻居列表
+	}
+	dfs(1);	//从节点1开始访问整棵树
+
+	return 0;
+}
