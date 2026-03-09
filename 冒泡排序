@@ -1,0 +1,81 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+// 简化版冒泡排序（升序，仅保留核心+交换标记优化）
+void bubbleSort(int arr[], int n) {
+    // 外层循环：控制排序轮数（最多n-1轮）
+    for (int i = 0; i < n - 1; i++) {
+        int flag = 0; // 交换标记：0=无交换，1=有交换
+
+        // 内层循环：遍历未排序区间，相邻比较交换
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) { // 升序：前>后则交换
+                // 交换两个元素
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                flag = 1; // 标记有交换
+            }
+        }
+
+        if (flag == 0) break; // 无交换说明有序，提前终止（核心优化）
+    }
+}
+
+// 简化打印函数
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int main() {
+    // 单测试用例（覆盖核心场景）
+    int arr[] = { 5, 4, 1, 2, 3 }; // 含逆向移动元素（826常考）
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("排序前：");
+    printArray(arr, n);
+
+    bubbleSort(arr, n);
+    printf("排序后：");
+    printArray(arr, n);
+
+    return 0;
+}
+
+
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+// 无flag的冒泡排序（仅保证排序正确，无优化）
+void bubbleSort(int arr[], int n) {
+    // 外层循环固定执行n-1轮
+    for (int i = 0; i < n - 1; i++) {
+        // 内层循环比较交换
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    printf("\n");
+}
+
+int main() {
+    int arr[] = { 1,2,3,4,5 }; // 完全有序的序列
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    printf("排序前：");
+    printArray(arr, n);
+    bubbleSort(arr, n); // 哪怕有序，仍会执行4轮循环
+    printf("排序后：");
+    printArray(arr, n);
+
+    return 0;
+}
